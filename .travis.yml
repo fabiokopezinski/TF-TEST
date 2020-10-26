@@ -16,4 +16,6 @@ install:
 script:
   - cd examples
   - cd identifier
-  - make 
+  - make clean compile UnitTests
+  - make clean compile valgrind
+  - make clean cov
