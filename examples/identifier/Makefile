@@ -50,15 +50,36 @@ SYMBOLS=
 all: clean compile run
 
 cppcheck:
-	- cppcheck src/identifier.c
+	@echo "  "
+	@echo "  "
+	@echo "********  cppcheck  *******"
+	cppcheck identifier/src/identifier.c
 
 compile:
-	$(C_COMPILER) $(CFLAGS) -fprofile-arcs -ftest-coverage  $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
-run:
-	- ./$(TARGET1) -v
-	- gcov -b -c identifier.c > gcov.log
-	- valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET1) > valgrind.log
-	- cppcheck src/identifier.c > cppcheck.log
+	@echo "  "
+	@echo "  "
+	@echo "********  compile  *******"
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+
+UnitTests: 
+	@echo "  "
+	@echo "  "
+	@echo "********  UnitTests  *******"
+	./$(TARGET1) -v
+
+valgrind:
+	@echo "  "
+	@echo "  "
+	@echo "********  valgrind  *******"
+	valgrind --leak-check=full --show-leak-kinds=all ./all_tests.out
+
+cov: 
+	@echo "  "
+	@echo "  "
+	@echo "********  cov  *******"
+	$(C_COMPILER) $(CFLAGS) -fprofile-arcs -ftest-coverage $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1) 
+	gcov ***.gcno -m
+	gcovr -r .
 
 clean:
 	$(CLEANUP) $(TARGET1)
