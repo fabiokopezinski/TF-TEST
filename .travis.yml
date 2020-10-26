@@ -8,8 +8,12 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - gcc
+      - valgrind
+      - cppcheck
+      - gcovr
 install:
   - "[ $GCC = gcc ] && export GCC=gcc || true"
 script:
-  - make
-#  - make test
+  - cd examples
+  - cd identifier
+  - make 
