@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------
 
 #include <stdio.h>
+#include "identifier.h"
 
 int valid_s(char ch) {
   if (((ch >= 'A') && (ch <= 'Z')) || ((ch >= 'a') && (ch <= 'z')))
@@ -21,30 +22,29 @@ int valid_f(char ch) {
     return 0;
 }
 
-int main(void) {
+int identifier(char * letter){
   char achar;
   int  length, valid_id;
   length = 0;
-  printf("Identificador: ");
-  achar = fgetc(stdin);
-  valid_id = valid_s(achar);
+  valid_id = valid_s(letter[0]);
   if(valid_id) {
     length = 1;
   }
-  achar = fgetc(stdin);
-  while(achar != '\n') {
+  achar = letter[1];
+  while(achar != '\0') {
     if(!(valid_f(achar))) {
       valid_id = 0;
     }
     length++;
-    achar = fgetc(stdin);
+    achar = letter[length];
   }
-  if (valid_id && (length >= 1) && (length < 6)) {
-    printf("Valido\n");
+  if (valid_id && (length >= 1) && (length <= 6)) {
+    
     return 0;
   }
   else {
-    printf("Invalido\n");
+   
     return 1;
   }
+
 }
