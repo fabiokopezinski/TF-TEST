@@ -14,8 +14,6 @@ addons:
 install:
   - "[ $GCC = gcc ] && export GCC=gcc || true"
 script:
-  - cd examples
-  - cd identifier
   - make clean compile UnitTests
   - make clean compile valgrind
   - make clean cov
