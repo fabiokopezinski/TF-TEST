@@ -16,7 +16,8 @@ Important files:
 Author
 ------
 [**Fábio Kopezinski**](https://www.linkedin.com/in/f%C3%A1bio-kopezinski-carvalho-981297161/)
-[**Gabriel França**]
+
+**Gabriel França**
 
 
 License
