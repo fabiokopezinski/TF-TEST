@@ -66,12 +66,13 @@ run:
 	@echo "       TEST       " 
 	@echo " "
 	- ./$(TARGET1) -v
-	
+	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov
 cov:
 	@echo " "
 	@echo "       COV          " 
 	@echo " "
 	- gcov -b -c identifier.c
+	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov
 
 valgrind:
 	@echo "  "
@@ -79,6 +80,7 @@ valgrind:
 	@echo "     VALGRIND       "
 	@echo "  "
 	- valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET1) > valgrind.log
+	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov
 
 
 clean:
@@ -86,5 +88,4 @@ clean:
 	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov
 
 
-ci: CFLAGS += -Werror 
-ci: compile
+ci: CFLAGS += -Werror	cd identifier && $(CLEANUP) $(TARGET1)
