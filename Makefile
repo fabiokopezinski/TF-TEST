@@ -18,7 +18,7 @@ ifeq ($(shell uname -s), Darwin)
 C_COMPILER=clang
 endif
 
-UNITY_ROOT=../..
+UNITY_ROOT=Unity
 
 CFLAGS=-std=c99
 CFLAGS += -Wall
@@ -35,51 +35,51 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
-TARGET_BASE1=all_tests
+TARGET_BASE1=all_test
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
 SRC_FILES1=\
   $(UNITY_ROOT)/src/unity.c \
   $(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
-  src/identifier.c \
-  test/TestFoo.c \
-  test/test_runners/TestFoo_Runner.c \
-  test/test_runners/all_test.c
+  identifier/src/identifier.c \
+	identifier/test/TestFoo.c \
+  identifier/test/test_runners/TestFoo_Runner.c \
+  identifier/test/test_runners/all_test.c
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 SYMBOLS=
+all: clean cppcheck clean compile run clean compile cov clean compile valgrind
 
-all: clean compile UnitTests clean compile valgrind clean cov
 
 cppcheck:
 	@echo "  "
 	@echo "  "
-	@echo "********  cppcheck  *******"
-	cppcheck examples/identifier/src/identifier.c
+	@echo "       CPPCHECK "
+	@echo " "
+	cppcheck identifier/src/identifier.c
+	@echo " "
+
 
 compile:
-	@echo "  "
-	@echo "  "
-	@echo "********  compile  *******"
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+	$(C_COMPILER) $(CFLAGS) -fprofile-arcs -ftest-coverage $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
 
-UnitTests: 
-	@echo "  "
-	@echo "  "
-	@echo "********  UnitTests  *******"
-	./$(TARGET1) -v
+run:
+	@echo " "
+	@echo "       TEST       " 
+	@echo " "
+	- ./$(TARGET1) -v
+	
+cov:
+	@echo " "
+	@echo "       COV          " 
+	@echo " "
+	- gcov -b -c identifier.c
 
 valgrind:
 	@echo "  "
 	@echo "  "
-	@echo "********  valgrind  *******"
-	valgrind --leak-check=full --show-leak-kinds=all ./all_tests.out
+	@echo "     VALGRIND       "
+	@echo "  "
+	- valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET1) > valgrind.log
 
-cov: 
-	@echo "  "
-	@echo "  "
-	@echo "********  cov  *******"
-	$(C_COMPILER) $(CFLAGS) -fprofile-arcs -ftest-coverage $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1) 
-	gcov ***.gcno -m
-	gcovr -r .
 
 clean:
 	$(CLEANUP) $(TARGET1)
