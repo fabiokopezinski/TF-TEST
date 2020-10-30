@@ -24,10 +24,10 @@ License
 -------
 MIT License. See [LICENSE](LICENSE) for details.
 
-[main-url]: https://github.com/rafaelgaribotti/travis-identifier
-[readme-url]: https://github.com/rafaelgaribotti/travis-identifier/blob/main/README.md
-[license-url]: https://github.com/rafaelgaribotti/travis-identifier/blob/main/LICENSE
+[main-url]: https://github.com/fabiokopezinski/TF-TEST
+[readme-url]: https://github.com/fabiokopezinski/TF-TEST/blob/main/README.md
+[license-url]: https://github.com/fabiokopezinski/TF-TEST/blob/main/LICENSE
 [license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
-[travis-url]: https://travis-ci.org/rafaelgaribotti/travis-identifier
-[travis-img]: https://travis-ci.org/rafaelgaribotti/travis-identifier.svg?branch=master
-[github-follow-url]: https://github.com/rafaelgaribotti
+[travis-url]: https://travis-ci.org/fabiokopezinski/TF-TEST
+[travis-img]: https://travis-ci.org/fabiokopezinski/TF-TEST.svg?branch=master
+[github-follow-url]: https://github.com/fabiokopezinski
